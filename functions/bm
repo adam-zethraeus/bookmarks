@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+
+while getopts j:lm:npd:hfs: flag
+do
+    case $flag in
+
+        j)
+            @bookmarks_jump $OPTARG
+            ;;
+        l)
+            @bookmarks_list
+            ;;
+        m)
+            @bookmarks_mark $OPTARG
+            ;;
+        n)
+            @bookmarks_next
+            ;;
+        p)
+            @bookmarks_prev
+            ;;
+        d)
+            @bookmarks_delete $OPTARG
+            ;;
+        h)
+            @bookmarks_usage
+            ;;
+        f)
+            @bookmarks_search
+            ;;
+        s)
+            @bookmarks_search $OPTARG
+            ;;
+        ?)
+            @bookmarks_usage
+            ;;
+    esac
+done
+

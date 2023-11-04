@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+echo "bm           -- alias: bm -f"
+echo "    -m <x>   -- mark current directory as <x>"
+echo "    -l       -- list bookmarks"
+echo "    -j <x>   -- jump to bookmark <x>"
+echo "    -s <x>   -- search-jump to bookmark <x>"
+echo "    -f       -- interactive fuzzy-jump"
+echo "    -n       -- jump to next bookmark (from most recent jump)"
+echo "    -p       -- jump to previous bookmark (from most recent jump)"
+echo "    -d <x>   -- delete bookmark <x>"
+echo "    -h       -- print this help"

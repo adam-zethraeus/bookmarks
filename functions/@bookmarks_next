@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+maxlineindex=$(NOCOLOR=1 bm -l | wc -l | xargs)
+((maxlineindex > 0)) || { @bookmarks_usage ; exit 1 ; }
+first="$(NOCOLOR=1 bm -l | head -n1 | cut -d' ' -f1)"
+last="$(NOCOLOR=1 bm -l | tail -n1 | cut -d' ' -f1)"
+curr="$(cat "$BOOKMARKS_LAST")" && [[ "$curr" != "" ]] || curr="$last"
+currindex="$(NOCOLOR=1 bm -l | cut -d' ' -f1 | grep -n -E "^$curr" | cut -d: -f1)"
+((nextindex = currindex+1))
+((nextindex <= maxlineindex)) || ((nextindex=1))
+next="$(NOCOLOR=1 bm -l | sed -n -e "${nextindex}p" | cut -d' ' -f1)"
+[[ "$next" != "" ]] || next="$first"
+@bookmarks_jump "$next" && echo "$next" > ~/.bookmarks_last

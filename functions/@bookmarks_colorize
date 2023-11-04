@@ -1,0 +1,15 @@
+local -a colorized
+
+if [ -n "$NOCOLOR" ]; then 
+  echo "$*";
+else
+  ONE="${ONE:-cyan}"
+  TWO="${TWO:-red}"
+  for dir in ${(s./.)1}; do
+    colorized=($colorized "${c[${ONE}]}${c[bold]}${dir}" )
+  done
+
+  echo -n "$(@bookmarks_join "${c[${TWO}]}${c[bold]}/" $colorized)${c[reset]}"
+fi
+
+

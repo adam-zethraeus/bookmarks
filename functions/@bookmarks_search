@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+if ! command -v fzf >/dev/null 2>&1; then
+    (($#==0)) || { echo "install fzf for interactive search" ; exit 1 ; }
+    target="$(NOCOLOR=1 @bookmarks_list | grep "$*" | head -n1 | cut -d' ' -f1)"
+elif (($#==0)); then
+    target="$(@bookmarks_list | fzf --ansi | cut -d' ' -f1)"
+else
+    target="$(NOCOLOR=1 @bookmarks_list | fzf -0 -f "$*" | cut -d' ' -f1)"
+fi
+
+@bookmarks_jump "$target"

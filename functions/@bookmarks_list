@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+bookmark_file="$(<"$BOOKMARKS_FILE")"
+bookmark_path=""
+bookmark_name=""
+here=""
+
+here="$(pwd -P)"
+
+echo "$bookmark_file" | while read line; do
+  bookmark_path="${line%|*}"
+  bookmark_name="${line#*|}"
+  resolved_path=`eval readlink -f $bookmark_path`
+  if [ "$here" = "$resolved_path" ]; then
+    echo "$(ONE=blue TWO=red @bookmarks_colorize $bookmark_name)|$(ONE=green TWO=red @bookmarks_colorize $bookmark_path)" ;
+  else
+    echo "$(ONE=blue TWO=red @bookmarks_colorize $bookmark_name)|$(ONE=cyan TWO=red @bookmarks_colorize $bookmark_path)" ;
+  fi
+done | column -s '|' -t
